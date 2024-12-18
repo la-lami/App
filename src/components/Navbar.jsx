@@ -14,24 +14,31 @@
 
 //         </ul>
 //         <div>
-//             <input type="text" placeholder="Search here..." className="w-[600px] rounded p-2 border-slate-200" />    
+//             <input type="text" placeholder="Search here..." className="w-[600px] rounded p-2 border-slate-200" />
 //         </div>
 //         <ul className="flex space-x-4">
 //             <li>username</li>
 //             <button className='bg-red-500 rounded-lg p-1 hover:bg-orange-500' >Logout</button>
-            
 
 //         </ul>
-        
-      
+
 //     </div>
 //   )
 // }
 
 // export default Navbar
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const HandleLogin = () => {
+    navigate("/login");
+  };
+  const HandleSignup = () => {
+    navigate("/signup");
+  };
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -52,9 +59,15 @@ function Navbar() {
 
       {/* Menu for large screens */}
       <ul className="hidden md:flex space-x-4 font-semibold text-lg">
-        <li>Home</li>
-        <li>Cart</li>
-        <li>Orders</li>
+        <NavLink to={"/"}>
+          <li>Home</li>
+        </NavLink>
+        <NavLink to={"/cart"}>
+          <li>Cart</li>
+        </NavLink>
+        <NavLink to={"/order"}>
+          <li>Order</li>
+        </NavLink>
       </ul>
 
       {/* Search Bar */}
@@ -68,10 +81,21 @@ function Navbar() {
 
       {/* User Info */}
       <ul className="hidden md:flex space-x-4 font-semibold">
-        <li>Username</li>
+        {/* <li>username</li> */}
         <li>
-          <button className="bg-red-500 rounded-lg p-1 hover:bg-orange-500">
-            Logout
+          <button
+            className="bg-red-500 rounded-lg p-1 hover:bg-orange-500 text-white "
+            onClick={HandleLogin}
+          >
+            Login
+          </button>
+        </li>
+        <li>
+          <button
+            className="bg-blue-500 rounded-lg p-1 hover:bg-blue-300 text-white"
+            onClick={HandleSignup}
+          >
+            Signup
           </button>
         </li>
       </ul>
@@ -91,14 +115,29 @@ function Navbar() {
       {isMenuOpen && (
         <div className="absolute top-[70px] left-0 w-full bg-orange-300 shadow-md md:hidden">
           <ul className="flex flex-col items-start space-y-2 p-4 font-semibold text-lg">
-           <NavLink to={'/'} ><li>Home</li></NavLink>
-           <NavLink to={'/cart'} ><li>Cart</li></NavLink>
-           <NavLink to={'/order'} ><li>Order</li></NavLink>
-            <li>Orders</li>
-            <li>username</li>
+            <li>Home</li>
+
+            <li>Cart</li>
+
+            <li>Order</li>
+
+            {/* <li>username</li> */}
             <li>
-              <button className="bg-red-500 rounded-lg p-1 hover:bg-orange-500">
-                Logout
+              <button
+                onClick={HandleLogin}
+                className="bg-red-500 rounded-lg p-1 hover:bg-orange-500
+                text-white"
+              >
+                {" "}
+                Login
+              </button>
+            </li>
+            <li>
+              <button
+                className="bg-blue-500 rounded-lg p-1 hover:bg-blue-300 text-white"
+                onClick={HandleSignup}
+              >
+                Signup
               </button>
             </li>
           </ul>
