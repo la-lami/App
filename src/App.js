@@ -41,18 +41,23 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Auth/Pages/Login";
 import Signup from "./Auth/Pages/Signup";
 import ProductDetail from "./user/pages/ProductDetail";
+import Cart from "./user/pages/Cart";
+import { AuthProvider } from "./contexts/AuthContext";
 function App() {
   return (
     <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/navbar" element={<Navbar />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-        </Routes>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/navbar" element={<Navbar />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </>
   );
 }
