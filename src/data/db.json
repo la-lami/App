@@ -3,56 +3,56 @@
     {
       "id": "1",
       "name": "iPhone 14 Pro",
-      "price": "$999",
+      "price": "999",
       "specs": "256GB, A16 Bionic Chip",
       "image": "https://www.designinfo.in/wp-content/uploads/2023/01/Apple-iPhone-14-Pro-Mobile-Phone-493177786-i-1-1200Wx1200H-optimized.jpeg"
     },
     {
       "id": "2",
       "name": "Samsung Galaxy S23",
-      "price": "$799",
+      "price": "799",
       "specs": "128GB, Snapdragon 8 Gen 2",
       "image": "https://oxygendigitalshop.com/media/catalog/product/cache/48d1a422204fa1dbf141d31f3c6c7b20/2/_/2_4_1_1.jpeg?auto=webp&format=pjpg&width=640&height=800&fit=cover"
     },
     {
       "id": "3",
       "name": "Google Pixel 8",
-      "price": "$699",
+      "price": "699",
       "specs": "128GB, Tensor G3",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3xDWwbyS-Cr9_H4IZmQO9LsT_waWRnyj-ww&s"
     },
     {
       "id": "4",
       "name": "OnePlus 11",
-      "price": "$649",
+      "price": "649",
       "specs": "256GB, Snapdragon 8 Gen 2",
       "image": "https://oasis.opstatics.com/content/dam/oasis/page/2023/na/oneplus-11/specs/green-img.png"
     },
     {
       "id": "5",
       "name": "iPhone SE 3",
-      "price": "$429",
+      "price": "429",
       "specs": "64GB, A15 Bionic Chip",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMF9BrvxCV_-Olt8cNHsp12zYvxIfsSJYM_g&s"
     },
     {
       "id": "6",
       "name": "Xiaomi 13 Pro",
-      "price": "$749",
+      "price": "749",
       "specs": "256GB, Snapdragon 8 Gen 2",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAIcOTWJE6571RwJoHQIC38bB8BkWRfGzW6A&s"
     },
     {
       "id": "7",
       "name": "Vivo X90 Pro",
-      "price": "$699",
+      "price": "699",
       "specs": "256GB, Dimensity 9200",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4kaDysDl_5pVU5p_n4A5wVnDFwTiBF25EJQ&s"
     },
     {
       "id": "8",
       "name": "Realme GT 5",
-      "price": "$549",
+      "price": "549",
       "specs": "256GB, Snapdragon 8+ Gen 1",
       "image": "https://fdn2.gsmarena.com/vv/pics/realme/realme-gt5-1.jpg"
     }
@@ -69,6 +69,93 @@
       "username": "najiya",
       "email": "najiya@123gmail.com",
       "password": "nana"
+    }
+  ],
+  "orders": [
+    {
+      "id": "4e9c",
+      "cart": [
+        {
+          "id": "2",
+          "name": "Samsung Galaxy S23",
+          "price": "799",
+          "specs": "128GB, Snapdragon 8 Gen 2",
+          "image": "https://oxygendigitalshop.com/media/catalog/product/cache/48d1a422204fa1dbf141d31f3c6c7b20/2/_/2_4_1_1.jpeg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+          "quantity": 2
+        }
+      ],
+      "address": {
+        "fullName": "najiya",
+        "phone": "08113835852",
+        "street": "perinthalmanna",
+        "city": "mlp",
+        "state": "kerala",
+        "zip": "676312"
+      },
+      "paymentMethod": "Cash on Delivery",
+      "date": "2024-12-25"
+    },
+    {
+      "id": "7f60",
+      "cart": [
+        {
+          "id": "3",
+          "name": "Google Pixel 8",
+          "price": "699",
+          "specs": "128GB, Tensor G3",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3xDWwbyS-Cr9_H4IZmQO9LsT_waWRnyj-ww&s",
+          "quantity": 1
+        }
+      ],
+      "address": {
+        "fullName": "lamiya",
+        "phone": "9061432327",
+        "street": "kadalundi",
+        "city": "mlp",
+        "state": "kerala",
+        "zip": "679321"
+      },
+      "paymentMethod": "UPI",
+      "date": "2024-12-25"
+    },
+    {
+      "id": "4343",
+      "cart": [
+        {
+          "id": "1",
+          "name": "iPhone 14 Pro",
+          "price": "999",
+          "specs": "256GB, A16 Bionic Chip",
+          "image": "https://www.designinfo.in/wp-content/uploads/2023/01/Apple-iPhone-14-Pro-Mobile-Phone-493177786-i-1-1200Wx1200H-optimized.jpeg",
+          "quantity": 1
+        },
+        {
+          "id": "2",
+          "name": "Samsung Galaxy S23",
+          "price": "799",
+          "specs": "128GB, Snapdragon 8 Gen 2",
+          "image": "https://oxygendigitalshop.com/media/catalog/product/cache/48d1a422204fa1dbf141d31f3c6c7b20/2/_/2_4_1_1.jpeg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
+          "quantity": 1
+        },
+        {
+          "id": "3",
+          "name": "Google Pixel 8",
+          "price": "699",
+          "specs": "128GB, Tensor G3",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3xDWwbyS-Cr9_H4IZmQO9LsT_waWRnyj-ww&s",
+          "quantity": 1
+        }
+      ],
+      "address": {
+        "fullName": "shamil murad",
+        "phone": "9656846598",
+        "street": "perinthalmanna",
+        "city": "mlp",
+        "state": "kerala",
+        "zip": "676312"
+      },
+      "paymentMethod": "UPI",
+      "date": "2024-12-25"
     }
   ]
 }

@@ -158,7 +158,7 @@ function Navbar() {
         <NavLink to={"/cart"}>
           <li>Cart</li>
         </NavLink>
-        <NavLink to={"/order"}>
+        <NavLink to={"/orders"}>
           <li>Order</li>
         </NavLink>
       </ul>
@@ -229,7 +229,7 @@ function Navbar() {
             <NavLink to={"/cart"}>
               <li>Cart</li>
             </NavLink>
-            <NavLink to={"/order"}>
+            <NavLink to={"/orders"}>
               <li>Order</li>
             </NavLink>
             <li>

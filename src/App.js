@@ -43,21 +43,28 @@ import Signup from "./Auth/Pages/Signup";
 import ProductDetail from "./user/pages/ProductDetail";
 import Cart from "./user/pages/Cart";
 import { AuthProvider } from "./contexts/AuthContext";
+import { CartProvider } from "./contexts/CartContext";
+import Checkout from "./user/pages/Checkout";
+import Order from "./user/pages/Order";
 function App() {
   return (
     <>
-      <AuthProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/navbar" element={<Navbar />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/cart" element={<Cart />} />
-          </Routes>
-        </Router>
-      </AuthProvider>
+      <CartProvider>
+        <AuthProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/navbar" element={<Navbar />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/orders" element={<Order />} />
+            </Routes>
+          </Router>
+        </AuthProvider>
+      </CartProvider>
     </>
   );
 }

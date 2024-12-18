@@ -1,76 +1,171 @@
-import React, { useEffect, useState } from "react";
+// import React from "react";
+// import Navbar from "../../components/Navbar";
+// import { useCart } from "../../contexts/CartContext";
+
+// const CartPage = () => {
+//   const { cart, dispatch } = useCart();
+
+//   const handleRemove = (id) => {
+//     dispatch({ type: "REMOVE_FROM_CART", payload: { id } });
+//   };
+
+//   const handleQuantityChange = (id, quantity) => {
+//     if (quantity > 0) {
+//       dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity } });
+//     }
+//   };
+
+//   // const totalPrice = cart.reduce(
+//   //   (total, item) => total + item.price * item.quantity,
+//   //   0
+//   // );
+//   const totalPrice = cart.reduce(
+//     (total, item) => total + Number(item.price) * Number(item.quantity),
+//     0
+//   );
+//   return (
+//     <>
+//       <Navbar />
+//       <div className="container mx-auto p-4">
+//         <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
+//         {cart.length > 0 ? (
+//           <div>
+//             {cart.map((item) => (
+//               <div
+//                 key={item.id}
+//                 className="flex items-center justify-between border-b py-4"
+//               >
+//                 <img
+//                   src={item.image}
+//                   alt={item.name}
+//                   className="w-16 h-16 object-contain"
+//                 />
+//                 <div className="flex-1 px-4">
+//                   <h2 className="text-lg font-semibold">{item.name}</h2>
+//                   <p className="text-gray-600">${item.price}</p>
+//                 </div>
+//                 <div className="flex items-center">
+//                   <input
+//                     type="number"
+//                     min="1"
+//                     value={item.quantity}
+//                     onChange={(e) =>
+//                       handleQuantityChange(item.id, parseInt(e.target.value))
+//                     }
+//                     className="border w-16 text-center"
+//                   />
+//                   <button
+//                     onClick={() => handleRemove(item.id)}
+//                     className="ml-4 text-red-500"
+//                   >
+//                     Remove
+//                   </button>
+//                 </div>
+//               </div>
+//             ))}
+//             <div className="mt-6 text-right">
+//               <h2 className="text-xl font-bold">
+//                 Total: ${totalPrice.toFixed(2)}
+//               </h2>
+//               <button className="bg-orange-500 text-white px-4 py-2 rounded mt-4 hover:bg-orange-600">
+//                 Checkout
+//               </button>
+//             </div>
+//           </div>
+//         ) : (
+//           <p className="text-center text-gray-500">Your cart is empty!</p>
+//         )}
+//       </div>
+//     </>
+//   );
+// };
+
+// export default CartPage;import React from "react";
 import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import { useCart } from "../../contexts/CartContext";
+import { useNavigate } from "react-router-dom";
 
-function Cart() {
-  const [cartItems, setCartItems] = useState([]); // State for cart items
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+const CartPage = () => {
+  const { cart, dispatch } = useCart();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // Retrieve cart items from localStorage or a backend API
-    const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    setCartItems(storedCartItems);
-    setLoading(false);
-  }, []);
-
-  // Remove item from cart
-  const removeFromCart = (itemId) => {
-    const updatedCart = cartItems.filter((item) => item.id !== itemId);
-    setCartItems(updatedCart);
-    localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+  const handleRemove = (id) => {
+    dispatch({ type: "REMOVE_FROM_CART", payload: { id } });
   };
 
-  // Show loading while fetching data
-  if (loading) {
-    return <p className="text-center text-lg">Loading cart...</p>;
-  }
+  const handleQuantityChange = (id, quantity) => {
+    if (quantity > 0) {
+      dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity } });
+    }
+  };
 
-  // Show error message on failure
-  if (error) {
-    return <p className="text-center text-red-500">{error}</p>;
-  }
+  const totalPrice = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
+  const handleCheckout = () => {
+    navigate("/checkout");
+  };
 
   return (
     <>
       <Navbar />
-      <div className="p-6">
-        <h1 className="text-2xl font-bold text-center mb-4">Your Cart</h1>
-        <div className="max-w-4xl mx-auto">
-          {cartItems.length === 0 ? (
-            <p className="text-center text-gray-500">Your cart is empty.</p>
-          ) : (
-            cartItems.map((item) => (
+      <div className="container mx-auto p-4">
+        <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
+        {cart.length > 0 ? (
+          <div>
+            {cart.map((item) => (
               <div
                 key={item.id}
-                className="border rounded-lg shadow-sm p-4 mb-4 flex justify-between items-center"
+                className="flex items-center justify-between border-b py-4"
               >
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-24 h-24 object-cover mr-4"
+                  className="w-16 h-16 object-contain"
                 />
-                <div>
+                <div className="flex-1 px-4">
                   <h2 className="text-lg font-semibold">{item.name}</h2>
-                  <p className="text-sm text-gray-500">{item.specs}</p>
-                  <p className="text-lg font-bold text-orange-500">
-                    {item.price}
-                  </p>
+                  <p className="text-gray-600">${item.price}</p>
                 </div>
-                <button
-                  onClick={() => removeFromCart(item.id)}
-                  className="ml-4 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                >
-                  Remove
-                </button>
+                <div className="flex items-center">
+                  <input
+                    type="number"
+                    min="1"
+                    value={item.quantity}
+                    onChange={(e) =>
+                      handleQuantityChange(item.id, parseInt(e.target.value))
+                    }
+                    className="border w-16 text-center"
+                  />
+                  <button
+                    onClick={() => handleRemove(item.id)}
+                    className="ml-4 text-red-500"
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
-            ))
-          )}
-        </div>
+            ))}
+            <div className="mt-6 text-right">
+              <h2 className="text-xl font-bold">
+                Total: ${totalPrice.toFixed(2)}
+              </h2>
+              <button
+                className="bg-orange-500 text-white px-4 py-2 rounded mt-4 hover:bg-orange-600"
+                onClick={handleCheckout}
+              >
+                Checkout
+              </button>
+            </div>
+          </div>
+        ) : (
+          <p className="text-center text-gray-500">Your cart is empty!</p>
+        )}
       </div>
-      {/* <Footer /> */}
     </>
   );
-}
+};
 
-export default Cart;
+export default CartPage;

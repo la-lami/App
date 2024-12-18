@@ -11,7 +11,7 @@ function Home() {
   useEffect(() => {
     // Fetch data from db.json via json-server
     axios
-      .get("http://localhost:5000/smartphones") // Endpoint served by json-server
+      .get("http://localhost:3000/smartphones") // Endpoint served by json-server
       .then((response) => {
         setSmartphones(response.data); // Set fetched data into state
         setLoading(false); // Stop loading once data is fetched
@@ -56,7 +56,7 @@ function Home() {
                   {phone.specs}
                 </p>
                 <p className="text-lg font-bold text-orange-500">
-                  {phone.price}
+                  ${phone.price}
                 </p>
               </div>
             </Link>
