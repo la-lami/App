@@ -1,19 +1,17 @@
 // import React, { useState } from "react";
-// import { NavLink } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
+// import { NavLink, useNavigate } from "react-router-dom";
+// import { useAuth } from "../contexts/AuthContext";
 
 // function Navbar() {
+//   const { user, logout } = useAuth();
 //   const navigate = useNavigate();
-//   const HandleLogin = () => {
-//     navigate("/login");
-//   };
-//   const HandleSignup = () => {
-//     navigate("/signup");
-//   };
 //   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-//   const toggleMenu = () => {
-//     setIsMenuOpen(!isMenuOpen);
+//   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+//   const handleLogout = () => {
+//     logout(); // Clear user from state
+//     navigate("/"); // Redirect to home
 //   };
 
 //   return (
@@ -36,7 +34,7 @@
 //         <NavLink to={"/cart"}>
 //           <li>Cart</li>
 //         </NavLink>
-//         <NavLink to={"/order"}>
+//         <NavLink to={"/orders"}>
 //           <li>Order</li>
 //         </NavLink>
 //       </ul>
@@ -52,26 +50,41 @@
 
 //       {/* User Info */}
 //       <ul className="hidden md:flex space-x-4 font-semibold">
-//         {/* <li>username</li> */}
-//         <li>
-//           <button
-//             className="bg-red-500 rounded-lg p-1 hover:bg-orange-500 text-white "
-//             onClick={HandleLogin}
-//           >
-//             Login
-//           </button>
-//         </li>
-//         <li>
-//           <button
-//             className="bg-blue-500 rounded-lg p-1 hover:bg-blue-300 text-white"
-//             onClick={HandleSignup}
-//           >
-//             Signup
-//           </button>
-//         </li>
+//         {user ? (
+//           <>
+//             <li>{user.username}</li>
+//             <li>
+//               <button
+//                 className="bg-red-500 rounded-lg p-1 hover:bg-orange-500 text-white"
+//                 onClick={handleLogout}
+//               >
+//                 Logout
+//               </button>
+//             </li>
+//           </>
+//         ) : (
+//           <>
+//             <li>
+//               <button
+//                 className="bg-red-500 rounded-lg p-1 hover:bg-orange-500 text-white"
+//                 onClick={() => navigate("/login")}
+//               >
+//                 Login
+//               </button>
+//             </li>
+//             <li>
+//               <button
+//                 className="bg-blue-500 rounded-lg p-1 hover:bg-blue-300 text-white"
+//                 onClick={() => navigate("/signup")}
+//               >
+//                 Signup
+//               </button>
+//             </li>
+//           </>
+//         )}
 //       </ul>
 
-//       {/* Menu Icon for Mobile */}
+//       {/* Mobile Menu */}
 //       <div className="block md:hidden">
 //         <button onClick={toggleMenu}>
 //           <img
@@ -92,28 +105,48 @@
 //             <NavLink to={"/cart"}>
 //               <li>Cart</li>
 //             </NavLink>
-//             <NavLink to={"/order"}>
+//             <NavLink to={"/orders"}>
 //               <li>Order</li>
 //             </NavLink>
-//             {/* <li>username</li> */}
 //             <li>
-//               <button
-//                 onClick={HandleLogin}
-//                 className="bg-red-500 rounded-lg p-1 hover:bg-orange-500
-//                 text-white"
-//               >
-//                 {" "}
-//                 Login
-//               </button>
+//               <input
+//                 type="text"
+//                 placeholder="Search here..."
+//                 className="w-full rounded p-2 border border-slate-300"
+//               />
 //             </li>
-//             <li>
-//               <button
-//                 className="bg-blue-500 rounded-lg p-1 hover:bg-blue-300 text-white"
-//                 onClick={HandleSignup}
-//               >
-//                 Signup
-//               </button>
-//             </li>
+//             {user ? (
+//               <>
+//                 <li>{user.username}</li>
+//                 <li>
+//                   <button
+//                     className="bg-red-500 rounded-lg p-1 hover:bg-orange-500 text-white"
+//                     onClick={handleLogout}
+//                   >
+//                     Logout
+//                   </button>
+//                 </li>
+//               </>
+//             ) : (
+//               <>
+//                 <li>
+//                   <button
+//                     className="bg-red-500 rounded-lg p-1 hover:bg-orange-500 text-white"
+//                     onClick={() => navigate("/login")}
+//                   >
+//                     Login
+//                   </button>
+//                 </li>
+//                 <li>
+//                   <button
+//                     className="bg-blue-500 rounded-lg p-1 hover:bg-blue-300 text-white"
+//                     onClick={() => navigate("/signup")}
+//                   >
+//                     Signup
+//                   </button>
+//                 </li>
+//               </>
+//             )}
 //           </ul>
 //         </div>
 //       )}
@@ -122,25 +155,31 @@
 // }
 
 // export default Navbar;
-import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useCart } from "../contexts/CartContext";
+import React, { useState } from "react";
 
 function Navbar() {
   const { user, logout } = useAuth();
+  const { cart } = useCart();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const handleLogout = () => {
-    logout(); // Clear user from state
-    navigate("/"); // Redirect to home
+    logout();
+    navigate("/");
   };
+
+  const cartCount = (cart || []).reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
 
   return (
     <div className="flex w-screen p-4 h-[70px] bg-orange-300 shadow-lg items-center justify-between">
-      {/* Logo */}
       <div className="flex items-center">
         <img
           src="https://cdn-icons-png.flaticon.com/512/12516/12516313.png"
@@ -150,20 +189,18 @@ function Navbar() {
         <p className="text-red-500 text-2xl font-bold ml-2">MOBIMART</p>
       </div>
 
-      {/* Menu for large screens */}
       <ul className="hidden md:flex space-x-4 font-semibold text-lg">
-        <NavLink to={"/"}>
-          <li>Home</li>
+        <NavLink to="/" className="block px-4 py-2 hover:text-red-500">
+          Home
         </NavLink>
-        <NavLink to={"/cart"}>
-          <li>Cart</li>
+        <NavLink to="/cart" className="block px-4 py-2 hover:text-red-500">
+          Cart {cartCount > 0 && `(${cartCount})`}
         </NavLink>
-        <NavLink to={"/orders"}>
-          <li>Order</li>
+        <NavLink to="/orders" className="block px-4 py-2 hover:text-red-500">
+          Order
         </NavLink>
       </ul>
 
-      {/* Search Bar */}
       <div className="hidden md:block">
         <input
           type="text"
@@ -172,7 +209,6 @@ function Navbar() {
         />
       </div>
 
-      {/* User Info */}
       <ul className="hidden md:flex space-x-4 font-semibold">
         {user ? (
           <>
@@ -208,36 +244,42 @@ function Navbar() {
         )}
       </ul>
 
-      {/* Mobile Menu */}
       <div className="block md:hidden">
         <button onClick={toggleMenu}>
           <img
-            src="https://cdn-icons-png.flaticon.com/512/61/61112.png"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/255px-Hamburger_icon.svg.png"
             alt="menu-icon"
             className="w-8 h-8"
           />
         </button>
       </div>
 
-      {/* Dropdown Menu for Mobile */}
       {isMenuOpen && (
-        <div className="absolute top-[70px] left-0 w-full bg-orange-300 shadow-md md:hidden">
+        <div className="absolute top-[70px] left-0 w-full bg-white shadow-md md:hidden z-50">
           <ul className="flex flex-col items-start space-y-2 p-4 font-semibold text-lg">
-            <NavLink to={"/"}>
-              <li>Home</li>
+            <NavLink to="/" className="block px-4 py-2 hover:text-red-500">
+              Home
             </NavLink>
-            <NavLink to={"/cart"}>
-              <li>Cart</li>
+            <NavLink to="/cart" className="block px-4 py-2 hover:text-red-500">
+              Cart {cartCount > 0 && `(${cartCount})`}
             </NavLink>
-            <NavLink to={"/orders"}>
-              <li>Order</li>
+            <NavLink
+              to="/orders"
+              className="block px-4 py-2 hover:text-red-500"
+            >
+              Order
             </NavLink>
-            <li>
-              <input
-                type="text"
-                placeholder="Search here..."
-                className="w-full rounded p-2 border border-slate-300"
-              />
+            <li className="w-full">
+              <div className="flex items-center space-x-2">
+                <input
+                  type="text"
+                  placeholder="Search here..."
+                  className="flex-grow rounded p-2 border border-slate-300"
+                />
+                <button className="bg-blue-500 rounded-lg p-2 text-white hover:bg-blue-400">
+                  Search
+                </button>
+              </div>
             </li>
             {user ? (
               <>

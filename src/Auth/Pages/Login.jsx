@@ -130,7 +130,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.get("http://localhost:5000/users", {
+      const response = await axios.get("http://localhost:3000/users", {
         params: { username },
       });
 

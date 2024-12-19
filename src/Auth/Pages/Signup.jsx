@@ -76,7 +76,7 @@ function SignUp() {
 
     try {
       // Check if username already exists
-      const response = await axios.get("http://localhost:5000/users", {
+      const response = await axios.get("http://localhost:3000/users", {
         params: { username },
       });
 
@@ -90,7 +90,7 @@ function SignUp() {
 
       // Create a new user
       const newUser = { username, email, password };
-      await axios.post("http://localhost:5000/users", newUser);
+      await axios.post("http://localhost:3000/users", newUser);
 
       // Redirect to login or dashboard
       navigate("/login");
